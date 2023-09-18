@@ -20,14 +20,7 @@ class Snake(pygame.sprite.Sprite):
         self.prev_tail_pos = self.rect.center
 
     def update(self) -> None:
-
-        position = self.prev_tail_pos
-        for sprite in self.tail_group:
-            next_pos = sprite.rect.center
-            sprite.move(position)
-            position = next_pos
-        else:
-            self.prev_tail_pos = self.rect.center
+        self.prev_tail_pos = self.rect.center
         if self.direction == "UP":
             self.rect.y -= 1
 
@@ -39,6 +32,10 @@ class Snake(pygame.sprite.Sprite):
 
         elif self.direction == "LEFT":
             self.rect.x -= 1
+        for sprite in self.tail_group:
+            next_pos = sprite.rect.center
+            sprite.move(self.prev_tail_pos)
+            self.prev_tail_pos = next_pos
 
     def change_direction(self, new_direction):
         if self.direction != new_direction:
@@ -56,6 +53,13 @@ class Snake(pygame.sprite.Sprite):
         y_movement = self.prev_tail_pos[1] - now_tail_pos[1]
         if x_movement < 0:
             tail_pos = [now_tail_pos[0] - 27, now_tail_pos[1]]
+        elif x_movement > 0:
+            tail_pos = [now_tail_pos[0] + 27, now_tail_pos[1]]
+        elif y_movement > 0:
+            tail_pos = [now_tail_pos[0], now_tail_pos[1] + 27]
+        elif y_movement < 0:
+            tail_pos = [now_tail_pos[0], now_tail_pos[1] - 27]
+
         tail = SnakeTail(tail_pos)
         print(self.tail_group.sprites()[:1])
         self.tail_group.add(tail)
@@ -66,6 +70,7 @@ class Apple(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("images/apple.png")
         self.rect = self.image.get_rect()
+        if self.rect.x
         self.rect.x = random.randint(0, WIDTH - self.rect.height)
         self.rect.y = random.randint(0, HEIGHT - self.rect.height)
 

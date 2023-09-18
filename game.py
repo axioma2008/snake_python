@@ -80,7 +80,7 @@ class Game:
         self.apples_sprites.add(apple)
 
     def show_start_screen(self):
-        image = pygame.image.load('images/first_screen.png')
+        image = pygame.image.load('images/start111.png')
         self.screen.blit(image, (0, 0))
         pygame.display.flip()
         self.wait_for_key()
