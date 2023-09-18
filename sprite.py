@@ -70,7 +70,6 @@ class Apple(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("images/apple.png")
         self.rect = self.image.get_rect()
-        if self.rect.x
         self.rect.x = random.randint(0, WIDTH - self.rect.height)
         self.rect.y = random.randint(0, HEIGHT - self.rect.height)
 
